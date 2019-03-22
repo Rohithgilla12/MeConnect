@@ -1,6 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {f,db} from './config/config';
+import {
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+import {
+  f,
+  db
+} from './config/config';
 import Announcements from './screens/Announcements';
 import SignUp from './screens/SignUp';
 import Login from './screens/Login';
@@ -10,7 +17,13 @@ import Sem from './screens/Sem';
 import Notes from './screens/Notes';
 import Todo from './screens/Todo';
 import Loading from './components/Loading';
-import {createStackNavigator, createDrawerNavigator,createSwitchNavigator,DrawerItems, SafeAreaView, createAppContainer} from 'react-navigation';
+import createAnnouncement from './components/createAnnouncement';
+import createPost from './components/createPost';
+import {
+  createStackNavigator,
+  createDrawerNavigator,
+  createSwitchNavigator
+} from 'react-navigation';
 
 const HomeStack = createStackNavigator({
   Main,
@@ -24,215 +37,246 @@ const AuthStack = createStackNavigator({
 })
 
 const ProfileNavigator = createStackNavigator({
-  Profile:{
-    screen:Profile
+  Profile: {
+    screen: Profile
   },
 
-},
-{
+}, {
   navigationOptions: {
-    navigationOptions: ({navigation})=>({
+    navigationOptions: ({
+      navigation
+    }) => ({
       headerStyle: {
-          backgroundColor: "#512DA8"
+        backgroundColor: "#512DA8"
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-          color: "#fff"
+        color: "#fff"
       },
-      headerLeft : <Icon 
-                          name='menu' 
-                          size={30}
-                          color='white'
-                          onPress={()=>navigation.toggleDrawer()}
-                  />
-  })
+      headerLeft: < Icon
+      name = 'menu'
+      size = {
+        30
+      }
+      color = 'white'
+      onPress = {
+        () => navigation.toggleDrawer()
+      }
+      />
+    })
   }
 })
 
 const SemNavigator = createStackNavigator({
-  Sem:{
-    screen:Sem
+  Sem: {
+    screen: Sem
   },
 
-},
-{
+}, {
   navigationOptions: {
-    navigationOptions: ({navigation})=>({
+    navigationOptions: ({
+      navigation
+    }) => ({
       headerStyle: {
-          backgroundColor: "#512DA8"
+        backgroundColor: "#512DA8"
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-          color: "#fff"
+        color: "#fff"
       },
-      headerLeft : <Icon 
-                          name='menu' 
-                          size={30}
-                          color='white'
-                          onPress={()=>navigation.toggleDrawer()}
-                  />
-  })
+      headerLeft: < Icon
+      name = 'menu'
+      size = {
+        30
+      }
+      color = 'white'
+      onPress = {
+        () => navigation.toggleDrawer()
+      }
+      />
+    })
   }
 })
 
 const TodoNavigator = createStackNavigator({
-  Todo:{
-    screen:Todo
+  Todo: {
+    screen: Todo
   },
 
-},
-{
+}, {
   navigationOptions: {
-    navigationOptions: ({navigation})=>({
+    navigationOptions: ({
+      navigation
+    }) => ({
       headerStyle: {
-          backgroundColor: "#512DA8"
+        backgroundColor: "#512DA8"
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-          color: "#fff"
+        color: "#fff"
       },
-      headerLeft : <Icon 
-                          name='menu' 
-                          size={30}
-                          color='white'
-                          onPress={()=>navigation.toggleDrawer()}
-                  />
-  })
+      headerLeft: < Icon
+      name = 'menu'
+      size = {
+        30
+      }
+      color = 'white'
+      onPress = {
+        () => navigation.toggleDrawer()
+      }
+      />
+    })
   }
 })
 
 const NotesNavigator = createStackNavigator({
-  Notes:{
-    screen:Notes
+  Notes: {
+    screen: Notes
   },
 
-},
-{
+}, {
   navigationOptions: {
-    navigationOptions: ({navigation})=>({
+    navigationOptions: ({
+      navigation
+    }) => ({
       headerStyle: {
-          backgroundColor: "#512DA8"
+        backgroundColor: "#512DA8"
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-          color: "#fff"
+        color: "#fff"
       },
-      headerLeft : <Icon 
-                          name='menu' 
-                          size={30}
-                          color='white'
-                          onPress={()=>navigation.toggleDrawer()}
-                  />
-  })
+      headerLeft: < Icon
+      name = 'menu'
+      size = {
+        30
+      }
+      color = 'white'
+      onPress = {
+        () => navigation.toggleDrawer()
+      }
+      />
+    })
   }
 })
 
 const HomeNavigator = createStackNavigator({
-  Main:{
-    screen:Main
+  Main: {
+    screen: Main
   },
+  createPost: {
+    screen: createPost
+  }
 
-},
-{
+}, {
   navigationOptions: {
-    navigationOptions: ({navigation})=>({
+    navigationOptions: ({
+      navigation
+    }) => ({
       headerStyle: {
-          backgroundColor: "#512DA8"
+        backgroundColor: "#512DA8"
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-          color: "#fff"
+        color: "#fff"
       },
-      headerLeft : <Icon 
-                          name='menu' 
-                          size={30}
-                          color='white'
-                          onPress={()=>navigation.toggleDrawer()}
-                  />
-  })
+      headerLeft: < Icon
+      name = 'menu'
+      size = {
+        30
+      }
+      color = 'white'
+      onPress = {
+        () => navigation.toggleDrawer()
+      }
+      />
+    })
   }
-}
-)
+})
 
 const AnnouncementsNavigator = createStackNavigator({
-  Announcements:{
-    screen:Announcements,
-    
+  Announcements: {
+    screen: Announcements,
   },
+  createAnnouncement: {
+    screen: createAnnouncement
+  }
   // CreatePost:{
   //   screen:CreatePost
   // },
   // Create:{
   //   screen:Create
   // }
-},
-{
+}, {
   navigationOptions: {
-    navigationOptions: ({navigation})=>({
+    navigationOptions: ({
+      navigation
+    }) => ({
       headerStyle: {
-          backgroundColor: "#512DA8"
+        backgroundColor: "#512DA8"
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-          color: "#fff"
+        color: "#fff"
       },
-      headerLeft : <Icon 
-                          name='menu' 
-                          size={30}
-                          color='white'
-                          onPress={()=>navigation.toggleDrawer()}
-                  />
-  })
+      headerLeft: < Icon
+      name = 'menu'
+      size = {
+        30
+      }
+      color = 'white'
+      onPress = {
+        () => navigation.toggleDrawer()
+      }
+      />
+    })
   }
 })
 
 const AppDrawerNavigator = createDrawerNavigator(
-  
-  {
-  Main:{
-    screen:HomeNavigator,
-    navigationOptions: {
-      title: 'Home'    
-    }
-  },
-  Announcements:{
-    screen: AnnouncementsNavigator
-  },
-  Profile : {
-    screen:ProfileNavigator,
-    navigationOptions:{
-      title:'Profile'
-    }
-  },
-  Notes : {
-    screen: NotesNavigator,
-    navigationOptions:{
-      title:'Notes'
-    }
-  },
-  Todo : {
-    screen: TodoNavigator,
-    navigationOptions:{
-      title:'Todo'
-    }
-  },
-  Sem : {
-    screen: SemNavigator,
-    navigationOptions:{
-      title:'Sem'
-    }
-  },
-})
 
-export default createSwitchNavigator(
   {
-    AuthLoading: AuthStack,
-    Home: AppDrawerNavigator,    
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);
+    Main: {
+      screen: HomeNavigator,
+      navigationOptions: {
+        title: 'Home'
+      }
+    },
+    Announcements: {
+      screen: AnnouncementsNavigator
+    },
+    Profile: {
+      screen: ProfileNavigator,
+      navigationOptions: {
+        title: 'Profile'
+      }
+    },
+    Notes: {
+      screen: NotesNavigator,
+      navigationOptions: {
+        title: 'Notes'
+      }
+    },
+    Todo: {
+      screen: TodoNavigator,
+      navigationOptions: {
+        title: 'Todo'
+      }
+    },
+    Sem: {
+      screen: SemNavigator,
+      navigationOptions: {
+        title: 'Sem'
+      }
+    },
+  })
+
+export default createSwitchNavigator({
+  AuthLoading: AuthStack,
+  Home: AppDrawerNavigator,
+}, {
+  initialRouteName: 'Home',
+});
 
 const styles = StyleSheet.create({
   container: {

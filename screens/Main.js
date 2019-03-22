@@ -60,8 +60,7 @@ export default class Main extends React.Component{
                 <ActionButton
                     buttonColor="rgba(231,76,60,1)"
                     onPress={() => { 
-                        this.props.navigation.navigate('Announcements')
-                        // console.log("Hmm");
+                        this.props.navigation.navigate('createPost')                        
                         }}
                 />
             </View>

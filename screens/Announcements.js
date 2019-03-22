@@ -80,7 +80,7 @@ export default class Announcements extends React.Component {
             <ActionButton
                 buttonColor="rgba(231,76,60,1)"
                 onPress={() => { 
-                this.props.navigation.navigate('Create')
+                this.props.navigation.navigate('createAnnouncement')
             }}
                 />
             </View>
