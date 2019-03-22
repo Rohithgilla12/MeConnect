@@ -3,7 +3,8 @@ import React, {
 } from 'react';
 import {
     View,
-    Text
+    Text,
+    ActivityIndicator
 } from 'react-native';
 import {
     Icon
@@ -22,7 +23,7 @@ class Profile extends Component {
         loading: true
     }
 
-    componentDidMount() {
+    componentWillMount() {
         var userId = f.auth().currentUser.uid;
         f.database().ref("users/" + userId).once('value').then(
             (snapshot) => {
@@ -30,15 +31,11 @@ class Profile extends Component {
                     email: snapshot.val().email,
                     name: snapshot.val().fullName,
                     mobileNumber: snapshot.val().mobileNumber,
-                    userName: snapshot.val().userName
+                    userName: snapshot.val().userName,
+                    loading:false
                 })
-                console.log(snapshot.val());
-                console.log(snapshot.val().email);
             }
         )
-        this.setState({
-            loading:false
-        })
     }
 
     static navigationOptions = ({
@@ -64,20 +61,11 @@ class Profile extends Component {
         />
     })
 
-    details = ()=>{
-        <Text>                    
-            Welcome, {this.state.fullName}!!
-            User Name : {this.state.userName}
-            Email : {this.state.email}
-            Mobile Number : {this.state.mobileNumber}
-        </Text>
-    }
-
     render() {
         if(this.state.loading){
             return(
                 <View>
-                    <Text>Loading!!!</Text>
+                    <ActivityIndicator/>
                 </View>
             )
         }

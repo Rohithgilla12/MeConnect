@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import {Icon } from 'react-native-elements';
+import ActionButton from 'react-native-action-button';
 
 class Todo extends Component {
 
@@ -23,7 +24,17 @@ class Todo extends Component {
 
     render() {
         return(
-            <View><Text>TODO Component</Text></View>
+            <View>
+                <Text>TODO Component</Text>
+                <ActionButton
+                buttonColor = "rgba(231,76,60,1)"
+                onPress = {
+                    () => {
+                        this.props.navigation.navigate('createTodo')
+                    }
+                }
+                />
+            </View>
         );
     }
 }

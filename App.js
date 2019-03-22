@@ -17,6 +17,8 @@ import Sem from './screens/Sem';
 import Notes from './screens/Notes';
 import Todo from './screens/Todo';
 import Loading from './components/Loading';
+import createNote from './components/createNote';
+import createTodo from './components/createTodo';
 import createAnnouncement from './components/createAnnouncement';
 import createPost from './components/createPost';
 import {
@@ -102,6 +104,9 @@ const TodoNavigator = createStackNavigator({
   Todo: {
     screen: Todo
   },
+  createTodo:{
+    screen: createTodo
+  }
 
 }, {
   navigationOptions: {
@@ -133,6 +138,9 @@ const NotesNavigator = createStackNavigator({
   Notes: {
     screen: Notes
   },
+  createNote:{
+    screen: createNote
+  }
 
 }, {
   navigationOptions: {
