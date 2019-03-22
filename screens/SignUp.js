@@ -23,8 +23,8 @@ export default class SignUp extends React.Component{
         console.log("In handling..")
         f.auth().createUserWithEmailAndPassword(
             this.state.email, this.state.password
-        ).then((res)=>{            
-            this.ref.doc(res.user.uid).set({
+        ).then((res)=>{
+            f.database().ref('users/' + res.user.uid).set({
                 email: this.state.email,
                 username:this.state.username,
                 fullName: this.state.fullName,

@@ -3,6 +3,7 @@
     "name": "MeConnect",
     "slug": "MeConnect",
     "privacy": "public",
+    "description": "your app desc",
     "sdkVersion": "32.0.0",
     "platforms": [
       "ios",
@@ -24,6 +25,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.lucandy.meconnect"
     }
   }
 }
