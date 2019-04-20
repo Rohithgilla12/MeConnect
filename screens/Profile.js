@@ -37,6 +37,11 @@ class Profile extends Component {
             }
         )
     }
+    signOutUser =  () => {
+        f.auth().signOut()
+        .then(this.props.navigation.navigate('Login'))
+        .catch("Can;t help ")
+    }
 
     static navigationOptions = ({
         navigation

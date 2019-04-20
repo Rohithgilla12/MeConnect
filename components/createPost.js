@@ -8,6 +8,22 @@ class createPost extends Component {
         title:'Create Post'
     })
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            imageId: this.uniqueID()
+        }
+        // alert(this.uniqueID());
+    }
+
+    s4 = () => {
+        return Math.floor((1+ Math.random())* 0x10000).toString(16).substring(1);
+    }
+
+    uniqueID = () => {
+        return this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_';
+    }
+
     _checkPermissions = async ()=>{
         const {status} = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({camera:status})
@@ -15,6 +31,17 @@ class createPost extends Component {
         this.setState({camera:statusRoll})
     }
     uploadImage = async(uri)=>{
+
+        var that  = this;
+        var userId = f.auth().currentUser.uid;
+        var imageId = this.state.imageId;
+
+        var re = /(?:\.([^.]+))?$/;
+        var ext = re.exec(uri)[1];
+        this.setState({
+            currentFileType : ext
+        });
+
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.onload = function() {
@@ -29,8 +56,8 @@ class createPost extends Component {
           });
         // const response = await fetch(uri);
         // const blob  = await response.blob();
-        var FilePath = 'life3.jpeg'
-        const ref = storage.ref('postPics/').child(FilePath)
+        var FilePath = imageId+'.'+that.state.currentFileType;
+        const ref = storage.ref('user/'+userId+'/img').child(FilePath);
         var snapshot = ref.put(blob).on('state_changed', snapshot =>{
             console.log('Progress',snapshot.bytesTransferred, snapshot.totalBytes)
         });
@@ -59,8 +86,11 @@ class createPost extends Component {
             <View style={styles.container}>
                 <TouchableOpacity
                     onPress={()=> this.fineNewImage()}
+                    style= { styles.selectImage }
                 >
-                    <Text>Select Photo</Text>
+                    <Text
+                        style = {styles.textHeading}
+                    >Select Photo</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -78,6 +108,14 @@ const styles = StyleSheet.create({
         borderColor:'gray',
         borderWidth:1,
         marginTop:8
+    },
+    selectImage:{
+        backgroundColor: '#129CF3',
+        padding: 20,
+        borderRadius: 10,
+    },
+    textHeading : {
+        color: '#fff'
     }
 })
 
