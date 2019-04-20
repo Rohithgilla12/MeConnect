@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default class createNote extends Component {
     static navigationOptions =({navigation})=>({
@@ -8,7 +8,21 @@ export default class createNote extends Component {
 
     render() {
         return(
-            <View><Text>Create Note Component</Text></View>
+            <View style= {styles.container}><Text>Create Note Component</Text></View>
         );
     }
 }
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    textInput:{
+        height: 40,
+        width:'90%',
+        borderColor:'gray',
+        borderWidth:1,
+        marginTop:8
+    }
+})
