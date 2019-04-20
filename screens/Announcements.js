@@ -23,9 +23,6 @@ export default class Announcements extends React.Component {
           backgroundColor: "#355876"
       },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-          color: "#fff"
-      },
       headerLeft : <Icon 
                           name='menu' 
                           size={30}

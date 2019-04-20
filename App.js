@@ -53,7 +53,11 @@ const ProfileNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff"
+        color: "#fff",
+        ...Platform.select({
+            ios : {fontFamily : 'Arial',},
+            android: {fontFamily : 'Roboto'}
+        }),
       },
       headerLeft: < Icon
       name = 'menu'
@@ -84,7 +88,11 @@ const SemNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff"
+        color: "#fff",
+        ...Platform.select({
+            ios : {fontFamily : 'Arial',},
+            android: {fontFamily : 'Roboto'}
+        }),
       },
       headerLeft: < Icon
       name = 'menu'
@@ -118,7 +126,11 @@ const TodoNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff"
+        color: "#fff",
+        ...Platform.select({
+            ios : {fontFamily : 'Arial',},
+            android: {fontFamily : 'Roboto'}
+        }),
       },
       headerLeft: < Icon
       name = 'menu'
@@ -152,7 +164,11 @@ const NotesNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff"
+        color: "#fff",
+        ...Platform.select({
+            ios : {fontFamily : 'Arial',},
+            android: {fontFamily : 'Roboto'}
+        }),
       },
       headerLeft: < Icon
       name = 'menu'
@@ -186,7 +202,11 @@ const HomeNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff"
+        color: "#fff",
+        ...Platform.select({
+            ios : {fontFamily : 'Arial',},
+            android: {fontFamily : 'Roboto'}
+        }),
       },
       headerLeft: < Icon
       name = 'menu'
@@ -225,7 +245,11 @@ const AnnouncementsNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff"
+        color: "#fff",
+        ...Platform.select({
+            ios : {fontFamily : 'Arial',},
+            android: {fontFamily : 'Roboto'}
+        }),
       },
       headerLeft: < Icon
       name = 'menu'
