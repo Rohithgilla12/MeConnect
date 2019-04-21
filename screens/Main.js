@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { StyleSheet, Platform, Image, Text, View , Button, FlatList} from "react-native";
-import {f,auth, storage, db} from '../config/config';
+import {f,auth, storage, db, database} from '../config/config';
 import ActionButton from 'react-native-action-button';
 import {createStackNavigator, createDrawerNavigator,DrawerItems, SafeAreaView, createAppContainer} from 'react-navigation';
 import { Card, ListItem, Icon } from 'react-native-elements';
@@ -19,13 +19,50 @@ export default class Main extends React.Component{
     }
 
     loadNew = () => {
-        this.setState({
-            refresh: true
-        });
-        this.setState({
-            photoFeed : [5,6,7,8,9],
-            refresh: false
-        })
+        this.loadFeed();
+        // this.setState({
+        //     refresh: true
+        // });
+        // this.setState({
+        //     photoFeed : [5,6,7,8,9],
+        //     refresh: false
+        // })
+    }
+
+    pluralCheck = (s) =>{
+        if(s == 1){
+            return ' ago';
+        }
+        else{
+            return 's ago';
+        }
+    }
+
+    timeConverter = (timestamp) =>{
+        var a = new Date(timestamp*1000);
+        var seconds = Math.floor((new Date() - a)/ 1000);
+
+        var interval = Math.floor(seconds/ 31536000);
+        if(interval >1){
+            return interval+' year'+this.pluralCheck(interval);
+        }
+        interval = Math.floor(seconds/ 2592000);
+        if(interval >1){
+            return interval+' month'+this.pluralCheck(interval);
+        }
+        interval = Math.floor(seconds/ 86400);
+        if(interval >1){
+            return interval+' day'+this.pluralCheck(interval);
+        }
+        interval = Math.floor(seconds/ 3600);
+        if(interval >1){
+            return interval+' hour'+this.pluralCheck(interval);
+        }
+        interval = Math.floor(seconds/ 60);
+        if(interval >1){
+            return interval+' minute'+this.pluralCheck(interval);
+        }
+        return Math.floor(seconds)+ ' second'+this.pluralCheck(interval);
     }
 
     static navigationOptions =({navigation})=>({
@@ -48,6 +85,64 @@ export default class Main extends React.Component{
     componentDidMount(){
         const {currentUser} = f.auth()
         this.setState({ currentUser })
+        this.loadFeed();
+        console.log(this.state.photoFeed);
+    }
+
+        addToFlatList = (photoFeed, data, photo) => {
+            var that = this; 
+            var photoObj = data[photo];
+            console.log(photoObj);
+            database.ref('users').child(photoObj.author).once('value').then(function (snapshot) {
+                const exists = (snapshot.val() != null);
+                if (exists) data = snapshot.val();
+                photoFeed.push({
+                    id: photo,
+                    url: photoObj.url,
+                    caption: photoObj.caption,
+                    author: data.username,
+                    posted: that.timeConverter(photoObj.posted)
+                });
+                that.setState({
+                    refresh: false,
+                    loading: false
+                });
+            })
+        }
+
+    loadFeed = () =>{
+        this.setState({
+            refresh:true,
+            photoFeed:[]
+        });
+
+        var that  = this;
+
+        database.ref('photos').orderByChild('posted').once('value').then(function(snapshot){
+            const exists = (snapshot.val() != null);
+            if(exists) data = snapshot.val();
+               var photoFeed = that.state.photoFeed;
+               for(var photo in data) {
+                that.addToFlatList(photoFeed,data, photo)
+                //    var photoObj = data[photo];
+                //    console.log(photoObj);
+                //    database.ref('users').child(photoObj.author).once('value').then(function(snapshot){
+                //     const exists = (snapshot.val() != null);                    
+                //     if(exists) data = snapshot.val();   
+                //         photoFeed.push({
+                //            id: photo,
+                //            url : photoObj.url,
+                //            caption: photoObj.caption,
+                //            author: data.username,
+                //            posted : photoObj.posted
+                //        });
+                //        that.setState({
+                //           refresh:false,
+                //           loading: false 
+                //        });
+                //    })
+               }
+        })
     }
 
     signOutUser =  () => {
@@ -75,17 +170,17 @@ export default class Main extends React.Component{
                     renderItem = {({item, index}) => (
                         <View key= {index} style={{width:'100%', overflow:'hidden', marginBottom:5, justifyContent:'space-between', borderColor:'grey', borderBottomWidth:1 }}>
                             <View style = {{padding:5, width:'100%', flexDirection:'row', justifyContent:'space-between'}}>
-                                <Text>Gilla</Text>
-                                <Text>Time Ago</Text>                                
+                                <Text>{item.author}</Text>
+                                <Text>{item.posted}</Text>                                
                             </View>
                             <View>
                                 <Image
-                                    source = {{uri: 'https://source.unsplash.com/random/500x'+ Math.floor(Math.random() * 800+ 500).toString() }}
+                                    source = {{uri: item.url}}
                                     style = {{resizeMode: 'cover', width:'100%', height: 275}}
                                 />
                             </View>
                             <View>
-                                <Text>Caption of the Image goes here!</Text>
+                                <Text>{item.caption}</Text>
                             </View>
                             <View style={{flex:0.1}}/>
                         </View>
