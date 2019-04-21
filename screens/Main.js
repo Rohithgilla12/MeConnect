@@ -4,7 +4,7 @@ import { StyleSheet, Platform, Image, Text, View , Button, FlatList} from "react
 import {f,auth, storage, db, database} from '../config/config';
 import ActionButton from 'react-native-action-button';
 import {createStackNavigator, createDrawerNavigator,DrawerItems, SafeAreaView, createAppContainer} from 'react-navigation';
-import { Card, ListItem, Icon } from 'react-native-elements';
+import { Card, ListItem, Icon, Divider } from 'react-native-elements';
 import Announcements from './Announcements';
 
 export default class Main extends React.Component{
@@ -168,21 +168,33 @@ export default class Main extends React.Component{
                     keyExtractor = {(item, index) => index.toString()}
                     style = {{ flex:1, backgroundColor:"#eee"}}
                     renderItem = {({item, index}) => (
-                        <View key= {index} style={{width:'100%', overflow:'hidden', marginBottom:5, justifyContent:'space-between', borderColor:'grey', borderBottomWidth:1 }}>
-                            <View style = {{padding:5, width:'100%', flexDirection:'row', justifyContent:'space-between'}}>
-                                <Text>{item.author}</Text>
-                                <Text>{item.posted}</Text>                                
-                            </View>
+                        
+                        <View key= {index} style={{width:'100%', overflow:'hidden', marginBottom:5, justifyContent:'space-between'}}>
                             <View>
-                                <Image
+                                {/* <Image
                                     source = {{uri: item.url}}
                                     style = {{resizeMode: 'cover', width:'100%', height: 275}}
-                                />
+                                /> */}
+                                <Card                                    
+                                    image = {{uri: item.url}}
+                                    imageStyle = {{
+                                        height: 275,                                        
+                                    }}
+                                    
+                                >
+                                <Text style={{ marginBottom: 10 }}>
+                                    {item.caption}
+                                </Text>
+                                <View
+                                    style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+                                >
+                                    <Text style={styles.noteStyle}>{item.author}</Text>
+                                    <Text style={styles.noteStyle}>{item.posted}</Text>
+                                </View>
+                                <Divider style={{ backgroundColor: '#dfe6e9' }} />
+                                </Card>                                
                             </View>
-                            <View>
-                                <Text>{item.caption}</Text>
-                            </View>
-                            <View style={{flex:0.1}}/>
+                            
                         </View>
                     )}
                     />
@@ -209,5 +221,11 @@ const styles = StyleSheet.create({
         borderColor:'gray',
         borderWidth:1,
         marginTop:8
-    }
+    },
+    noteStyle: {
+        margin: 5,
+        fontStyle: 'italic',
+        color: '#616C6F',
+        fontSize: 10
+      }
 })
