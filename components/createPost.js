@@ -1,7 +1,27 @@
-import React, { Component } from 'react';
-import { ScrollView,View, Text, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator, Image } from 'react-native';
-import {Permissions,ImagePicker } from 'expo';
-import {f,auth, storage, database} from '../config/config';
+import React, {
+    Component
+} from 'react';
+import {
+    ScrollView,
+    View,
+    Text,
+    TouchableOpacity,
+    StyleSheet,
+    TextInput,
+    ActivityIndicator,
+    Image
+
+} from 'react-native';
+import {
+    Permissions,
+    ImagePicker
+} from 'expo';
+import {
+    f,
+    auth,
+    storage,
+    database
+} from '../config/config';
 
 
 class createPost extends Component {
@@ -128,7 +148,7 @@ class createPost extends Component {
         // TODO Firebase update
         database.ref('/photos/'+imageId).set(photoObj);
         alert("Image Uploaded!");
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Main');
     }
     // renderActivityMonitor = () => {
     //     if(this.state.uploading){

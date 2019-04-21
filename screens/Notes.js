@@ -1,52 +1,85 @@
-import React, {
-    Component
-} from 'react';
-import {
-    View,
-    Text
-} from 'react-native';
-import {
-    Icon
-} from 'react-native-elements';
+import React from 'react'
+import { View, Text, StyleSheet,ActivityIndicator, FlatList } from 'react-native'
+import {f,auth, storage, database} from '../config/config';
 import ActionButton from 'react-native-action-button';
+import { Card, ListItem, Icon } from 'react-native-elements';
 
-class Notes extends Component {
-    static navigationOptions = ({
-        navigation
-    }) => ({
-        title: 'Notes',
-        headerStyle: {
-            backgroundColor: "#355876"
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            color: "#fff"
-        },
-        headerLeft: < Icon
-        name = 'menu'
-        size = {
-            30
-        }
-        color = 'white'
-        onPress = {
-            () => navigation.toggleDrawer()
-        }
-        />
-    })
+export default class Notes extends React.Component {
+    constructor() {
+        super();
+        this.unsubscribe = null;
+        this.state = {
+            textInput: '',
+            loading: true,
+            announcements: [],
+        };
+    }
 
-    render() {
-        return(
-            <View>
-                <Text>Notes Component</Text>
-                <ActionButton
+    static navigationOptions =({navigation})=>({
+      title:'Notes',
+      headerStyle: {
+          backgroundColor: "#355876"
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+          color: "#fff"
+      },
+      headerLeft : <Icon 
+                          name='menu' 
+                          size={30}
+                          color='white'
+                          onPress={()=>navigation.toggleDrawer()}
+                  />
+  })
+
+    fetchNotes = () =>{
+        data = database.ref('Notes/').once('value').then(function(snapshot){
+            console.log(snapshot);
+        });
+    }
+
+    componentDidMount() {
+        this.fetchNotes();
+    }
+    
+    // componentWillUnmount() {
+    //     this.unsubscribe();
+    // }
+      
+  render() {
+    return (
+            <View style={styles.container}>
+            <Text>Notes Route</Text> 
+            {/* <FlatList
+                data={this.state.announcements}
+                renderItem={
+                  ({item}) => 
+                  <Card
+                  cardElevation={2}
+                  cardMaxElevation={2}
+                  cornerRadius={5}
+                  >
+                    <Text>{item.description}</Text>
+                    <Text>{item.user}</Text>
+                  </Card>
+                  }
+            /> */}
+            <ActionButton
                 buttonColor="rgba(231,76,60,1)"
                 onPress={() => { 
-                this.props.navigation.navigate('createNote')                
+                this.props.navigation.navigate('createNote')
             }}
                 />
             </View>
-        );
-    }
-}
+            )
+        }
+        }
 
-export default Notes;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:40
+  }
+})
