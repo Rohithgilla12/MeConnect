@@ -21,6 +21,8 @@ import createNote from './components/createNote';
 import createTodo from './components/createTodo';
 import createAnnouncement from './components/createAnnouncement';
 import createPost from './components/createPost';
+import sem1 from './components/sem1';
+
 import {
   createStackNavigator,
   createDrawerNavigator,
@@ -77,6 +79,9 @@ const SemNavigator = createStackNavigator({
   Sem: {
     screen: Sem
   },
+  sem1:{
+    screen: sem1
+  }
 
 }, {
   navigationOptions: {

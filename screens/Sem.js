@@ -36,6 +36,11 @@ class Sem extends Component {
                     />
     })
 
+    handleSem1 = () =>{
+        console.log("Sem1")
+        this.props.navigation.navigate('sem1');
+    }
+
     render() {
         return(
             <ScrollView>                
@@ -50,7 +55,7 @@ class Sem extends Component {
                             icon={<Icon name='code' color='#ffffff' />}
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                            // title='VIEW'
+                            onPress = {this.handleSem1}
                              />
                     </Card>
                     <Card
@@ -175,3 +180,5 @@ const styles = StyleSheet.create({
 })
 
 export default Sem;
+
+// react native on press function with arguments
