@@ -3,12 +3,18 @@ import { View, Text, StyleSheet } from 'react-native';
 
 export default class sem1 extends Component {
     static navigationOptions =({navigation})=>({
-        title:'Sem 1'
+        title:'Sem 1',
+        headerTintColor: '#129cf3',
+        headerTitleStyle: {
+            color: "#129cf3"
+        },
     })
 
     render() {
         return(
-            <View style= {styles.container}><Text>Semester 1</Text></View>
+            <View style= {styles.container}>
+                <Text>Semester</Text>
+            </View>
         );
     }
 }
