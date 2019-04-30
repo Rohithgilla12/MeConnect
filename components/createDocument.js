@@ -6,15 +6,11 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Button,
-    Picker
+    Button
 } from 'react-native';
 import {
     DocumentPicker
 } from 'expo';
-
-
-
 
 import {
     f,
@@ -26,7 +22,7 @@ import {
 export default class sem1 extends Component {
 
     state = {
-        branch:'CSE'
+
     }
 
     s4 = () => {
@@ -120,7 +116,6 @@ export default class sem1 extends Component {
 
     }
     _pickDocument = async () => {
-        console.log(this.state);
 	    let result = await DocumentPicker.getDocumentAsync({});
 		//   alert(result.uri);
       console.log(result);
@@ -130,15 +125,6 @@ export default class sem1 extends Component {
     render() {
         return(
             <View style= {styles.container}>
-                <Picker
-                    selectedValue={this.state.branch}
-                    style={{ height: 50, width: 100 }}
-                    onValueChange={(itemValue, itemIndex) => this.setState({branch: itemValue})}>
-                    <Picker.Item label="CSE" value="CSE" />
-                    <Picker.Item label="EEE" value="EEE" />
-                    <Picker.Item label="MECH" value="MECH" />
-                    <Picker.Item label="CE" value="CE" />
-                </Picker>
                 <Button
           title="Select Document"
           onPress={this._pickDocument}
