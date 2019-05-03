@@ -40,30 +40,12 @@ export default class Notes extends React.Component {
 
     componentDidMount() {
         this.fetchNotes();
-    }
-    
-    // componentWillUnmount() {
-    //     this.unsubscribe();
-    // }
+    }    
       
   render() {
     return (
             <View style={styles.container}>
             <Text>Notes Route</Text> 
-            {/* <FlatList
-                data={this.state.announcements}
-                renderItem={
-                  ({item}) => 
-                  <Card
-                  cardElevation={2}
-                  cardMaxElevation={2}
-                  cornerRadius={5}
-                  >
-                    <Text>{item.description}</Text>
-                    <Text>{item.user}</Text>
-                  </Card>
-                  }
-            /> */}
             <ActionButton
                 buttonColor="rgba(231,76,60,1)"
                 onPress={() => { 
