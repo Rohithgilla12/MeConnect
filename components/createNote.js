@@ -1,54 +1,70 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import React, {
+  Component
+} from 'react';
+import {
+  View,
+  Text
+} from 'react-native';
+import {
+  Button
+} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
-import {KeyboardAvoidingView} from 'react-native';
-//import { db } from '../config';
-//import {f,auth, storage} from '../config/config';
-import {  
-    TouchableHighlight,
-    StyleSheet,
-    TextInput,
-    AlertIOS
-  } from 'react-native';
-import { f } from '../config/config';
-  
-  export default class createNote extends Component {  
-    state = {
-      name: '',
-      text:''
-    };
-  
-    s4 = () => {
-        return Math.floor((1+ Math.random())* 0x10000).toString(16).substring(1);
-    }
+import {
+  Input
+} from 'react-native-elements';
+import {
+  KeyboardAvoidingView
+} from 'react-native';
+import {
+  TouchableHighlight,
+  StyleSheet,
+  TextInput,
+  AlertIOS
+} from 'react-native';
+import {
+  f
+} from '../config/config';
 
-    uniqueID = () => {
-        return this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_';
-    }
+export default class createNote extends Component {
+  state = {
+    name: '',
+    text: ''
+  };
 
-    handleSubmit = () =>{
-        if (this.state.text != '')
-        { 
-            f.database().ref('Notes/'+this.uniqueID()).set({
-                name : this.state.text,
-                timestamp : Math.floor(Date.now()/1000),
-                user : f.auth().currentUser.uid
-            });
-            console.log(this.state.text);
-            this.props.navigation.goBack();
-            this.props.navigation.navigate('Notes'); 
-        } 
-        else { alert("Please Enter Text")   }
-        
-    }
+  s4 = () => {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  }
 
-    handleChange = e => {
-      this.setState({
-        name: e.nativeEvent.text
+  uniqueID = () => {
+    return this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_' + this.s4() + this.s4() + '_';
+  }
+
+  handleSubmit = () => {
+    if (this.state.text != '') {
+      try {
+        var userId = f.auth().currentUser.uid;
+      } catch {
+        this.props.navigation.navigate('Login')
+      }
+      console.log('users/' + userId + '/Notes/' + this.uniqueID());
+      f.database().ref('users/' + userId + '/Notes/' + this.uniqueID()).set({
+        name: this.state.text,
+        timestamp: Math.floor(Date.now() / 1000),
+        user: f.auth().currentUser.uid
       });
-    };
+      console.log(this.state.text);
+      this.props.navigation.goBack();
+      this.props.navigation.navigate('Notes');
+    } else {
+      alert("Please Enter Text")
+    }
+  }
+
+  handleChange = e => {
+    this.setState({
+      name: e.nativeEvent.text
+    });
+  };
 
   
     render() {
@@ -66,7 +82,7 @@ import { f } from '../config/config';
                 //type="clear"
                 onPress={this.handleSubmit}
                 >  
-                <Text style={styles.buttonText}>Post</Text>
+                <Text style={styles.buttonText}>Note it!</Text>
                 </TouchableHighlight>
     </KeyboardAvoidingView>
             

@@ -1,8 +1,23 @@
 import React from 'react'
-import { View, Text, StyleSheet,ActivityIndicator, FlatList } from 'react-native'
-import {f,auth, storage, db} from '../config/config';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  FlatList
+} from 'react-native'
+import {
+  f,
+  auth,
+  storage,
+  db
+} from '../config/config';
 import ActionButton from 'react-native-action-button';
-import { Card, ListItem, Icon } from 'react-native-elements';
+import {
+  Card,
+  ListItem,
+  Icon
+} from 'react-native-elements';
 
 
 export default class eee extends React.Component {

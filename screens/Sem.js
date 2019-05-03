@@ -19,8 +19,10 @@ import {
 
 class Sem extends Component {
 
-    static navigationOptions =({navigation})=>({
-        title:'Semester',
+    static navigationOptions = ({
+        navigation
+    }) => ({
+        title: 'Semester',
         headerStyle: {
             backgroundColor: "#355876"
         },
@@ -28,15 +30,19 @@ class Sem extends Component {
         headerTitleStyle: {
             color: "#fff"
         },
-        headerLeft : <Icon 
-                            name='menu' 
-                            size={30}
-                            color='white'
-                            onPress={()=>navigation.toggleDrawer()}
-                    />
+        headerLeft: < Icon
+        name = 'menu'
+        size = {
+            30
+        }
+        color = 'white'
+        onPress = {
+            () => navigation.toggleDrawer()
+        }
+        />
     })
 
-    handleSem1 = () =>{
+    handleSem1 = () => {
         console.log("Sem1")
         this.props.navigation.navigate('sem1');
     }

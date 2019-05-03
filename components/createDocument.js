@@ -26,25 +26,31 @@ import {
 export default class sem1 extends Component {
 
     state = {
-        branch:'CSE'
+        branch: 'CSE'
     }
 
-    static navigationOptions =({navigation})=>({
-        title:'Add Doc',
+    static navigationOptions = ({
+        navigation
+    }) => ({
+        title: 'Add Doc',
         headerStyle: {
             backgroundColor: "#355876"
         },
         headerTintColor: '#fff',
-        headerLeft : <Icon 
-                            name='menu' 
-                            size={30}
-                            color='white'
-                            onPress={()=>navigation.toggleDrawer()}
-                    />
+        headerLeft: < Icon
+        name = 'menu'
+        size = {
+            30
+        }
+        color = 'white'
+        onPress = {
+            () => navigation.toggleDrawer()
+        }
+        />
     })
 
     s4 = () => {
-        return Math.floor((1+ Math.random())* 0x10000).toString(16).substring(1);
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
 
     uniqueID = () => {
@@ -74,7 +80,7 @@ export default class sem1 extends Component {
             xhr.send(null);
         });
         var FilePath = docId + that.state.name;
-        console.log("File path: ",FilePath)
+        console.log("File path: ", FilePath)
         const uploadTask = storage.ref('user/' + userId + '/doc').child(FilePath).put(blob);
         uploadTask.on("state_changed", function (snapshot) {
             console.log('Progress', snapshot.bytesTransferred, snapshot.totalBytes)
@@ -112,8 +118,10 @@ export default class sem1 extends Component {
     //     }
     // }
 
-    static navigationOptions =({navigation})=>({
-        title:'Add Doc',
+    static navigationOptions = ({
+        navigation
+    }) => ({
+        title: 'Add Doc',
         headerTintColor: '#129cf3',
         headerTitleStyle: {
             color: "#129cf3"
@@ -121,32 +129,32 @@ export default class sem1 extends Component {
     })
 
     processUpload = (docUrl) => {
-        var userId = f.auth().currentUser.uid;        
+        var userId = f.auth().currentUser.uid;
         var dataTime = Date.now();
-        var timestamp = Math.floor(dataTime/1000);
+        var timestamp = Math.floor(dataTime / 1000);
         var docId = this.uniqueID();
         var docObj = {
-            author : userId,
-            posted : timestamp,
-            url : docUrl
+            author: userId,
+            posted: timestamp,
+            url: docUrl
         };
         // TODO Firebase update
-        database.ref('/docs/'+docId).set(docObj);
+        database.ref('/docs/' + docId).set(docObj);
         alert("Document Uploaded!");
         this.props.navigation.navigate('Main');
 
     }
     _pickDocument = async () => {
         console.log(this.state);
-	    let result = await DocumentPicker.getDocumentAsync({});
-		//   alert(result.uri);
-      console.log(result);
-      this.setState({
-          uri: result.uri,
-          name : result.name
-      })
-      this.uploadDocument(this.state.uri)
-	}
+        let result = await DocumentPicker.getDocumentAsync({});
+        //   alert(result.uri);
+        console.log(result);
+        this.setState({
+            uri: result.uri,
+            name: result.name
+        })
+        this.uploadDocument(this.state.uri)
+    }
     render() {
         return(
             <View style= {styles.container}>
