@@ -54,14 +54,13 @@ export default class sem1 extends Component {
     uploadDocument = async (uri) => {
         var that = this;
         var userId = f.auth().currentUser.uid;
-        var docId = this.state.docId;
+        var docId = this.uniqueID();
 
         var re = /(?:\.([^.]+))?$/;
         var ext = re.exec(uri)[1];
         this.setState({
             currentFileType: ext
         });
-
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.onload = function () {
@@ -74,8 +73,9 @@ export default class sem1 extends Component {
             xhr.open('GET', uri, true);
             xhr.send(null);
         });
-        var FilePath = docId + '.' + that.state.currentFileType;
-        const uploadTask = storage.ref('user/' + userId + '/doc').child("stuff.pdf").put(blob);
+        var FilePath = docId + that.state.name;
+        console.log("File path: ",FilePath)
+        const uploadTask = storage.ref('user/' + userId + '/doc').child(FilePath).put(blob);
         uploadTask.on("state_changed", function (snapshot) {
             console.log('Progress', snapshot.bytesTransferred, snapshot.totalBytes)
         }, function (error) {
@@ -89,28 +89,31 @@ export default class sem1 extends Component {
         })
     }
 
-    fineNewDoc = async() => {
-        let result = await DocumentPicker.getDocumentAsync({});
-        console.log(result);
-        if(!result.cancelled){
-            console.log('Upload Doc')
-            this.setState({
-                imageSelected: true,
-                docId: this.uniqueID(),
-                uri : result.uri
-            })
-            // this.uploadImage(result.uri)
-        }
-        else{
-            console.log('Cancel Doc')
-            this.setState({
-                imageSelected:false
-            })
-        }
-    }
+    // fineNewDoc = async() => {
+    //     let result = await DocumentPicker.getDocumentAsync({
+    //         type:'application/pdf',
+    //     });
+    //     console.log("Here!",result.name);        
+    //     if(!result.cancelled){
+    //         console.log('Upload Doc')
+    //         this.setState({
+    //             imageSelected: true,
+    //             docId: this.uniqueID(),
+    //             uri : result.uri,
+    //             name : result.name
+    //         })
+    //         // this.uploadImage(result.uri)
+    //     }
+    //     else{
+    //         console.log('Cancel Doc')
+    //         this.setState({
+    //             imageSelected:false
+    //         })
+    //     }
+    // }
 
     static navigationOptions =({navigation})=>({
-        title:'Sem 1',
+        title:'Add Doc',
         headerTintColor: '#129cf3',
         headerTitleStyle: {
             color: "#129cf3"
@@ -121,7 +124,7 @@ export default class sem1 extends Component {
         var userId = f.auth().currentUser.uid;        
         var dataTime = Date.now();
         var timestamp = Math.floor(dataTime/1000);
-        var docId = this.state.docId;
+        var docId = this.uniqueID();
         var docObj = {
             author : userId,
             posted : timestamp,
@@ -138,7 +141,10 @@ export default class sem1 extends Component {
 	    let result = await DocumentPicker.getDocumentAsync({});
 		//   alert(result.uri);
       console.log(result);
-      this.setState({uri:result.uri})
+      this.setState({
+          uri: result.uri,
+          name : result.name
+      })
       this.uploadDocument(this.state.uri)
 	}
     render() {
