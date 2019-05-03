@@ -69,6 +69,7 @@ class Sem extends Component {
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
                             // title='VIEW'
+                            onPress = { () => {this.props.navigation.navigate('eee')}}
                              />
                     </Card>
                 </View>
@@ -84,6 +85,7 @@ class Sem extends Component {
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
                             // title='VIEW'
+                            onPress = { () => {this.props.navigation.navigate('civil')}}
                              />
                     </Card>
                     <Card
@@ -97,6 +99,7 @@ class Sem extends Component {
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
                             // title='VIEW'
+                            onPress = { () => {this.props.navigation.navigate('mech')}}
                              />
                     </Card>
                 </View>
@@ -125,4 +128,3 @@ const styles = StyleSheet.create({
 
 export default Sem;
 
-// react native on press function with arguments

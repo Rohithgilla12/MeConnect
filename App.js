@@ -22,6 +22,10 @@ import createTodo from './components/createTodo';
 import createAnnouncement from './components/createAnnouncement';
 import createPost from './components/createPost';
 import sem1 from './components/sem1';
+import eee from './components/eee';
+import mech from './components/mech';
+import civil from './components/civil';
+import createDocument from './components/createDocument';
 
 import {
   createStackNavigator,
@@ -81,6 +85,18 @@ const SemNavigator = createStackNavigator({
   },
   sem1:{
     screen: sem1
+  },
+  createDocument:{
+    screen : createDocument
+  },
+  eee:{
+    screen: eee
+  },
+  mech : {
+    screen: mech
+  },
+  civil : {
+    screen: civil
   }
 
 }, {

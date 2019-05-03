@@ -5,9 +5,9 @@ import ActionButton from 'react-native-action-button';
 import { Card, ListItem, Icon } from 'react-native-elements';
 
 
-export default class sem1 extends React.Component {
+export default class eee extends React.Component {
     static navigationOptions =({navigation})=>({
-      title:'CSE',
+      title:'EEE',
       headerStyle: {
           backgroundColor: "#355876"
       },
@@ -22,7 +22,7 @@ export default class sem1 extends React.Component {
   render() {
     return (
             <View style={styles.container}>
-            <Text>CSE Route</Text> 
+            <Text>EEE Route</Text> 
             <ActionButton
                 buttonColor="rgba(231,76,60,1)"
                 onPress={() => { 

@@ -6,11 +6,15 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Button
+    Button,
+    Picker
 } from 'react-native';
 import {
     DocumentPicker
 } from 'expo';
+
+
+
 
 import {
     f,
@@ -22,8 +26,22 @@ import {
 export default class sem1 extends Component {
 
     state = {
-
+        branch:'CSE'
     }
+
+    static navigationOptions =({navigation})=>({
+        title:'Add Doc',
+        headerStyle: {
+            backgroundColor: "#355876"
+        },
+        headerTintColor: '#fff',
+        headerLeft : <Icon 
+                            name='menu' 
+                            size={30}
+                            color='white'
+                            onPress={()=>navigation.toggleDrawer()}
+                    />
+    })
 
     s4 = () => {
         return Math.floor((1+ Math.random())* 0x10000).toString(16).substring(1);
@@ -116,6 +134,7 @@ export default class sem1 extends Component {
 
     }
     _pickDocument = async () => {
+        console.log(this.state);
 	    let result = await DocumentPicker.getDocumentAsync({});
 		//   alert(result.uri);
       console.log(result);
@@ -125,6 +144,15 @@ export default class sem1 extends Component {
     render() {
         return(
             <View style= {styles.container}>
+                <Picker
+                    selectedValue={this.state.branch}
+                    style={{ height: 50, width: 100 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({branch: itemValue})}>
+                    <Picker.Item label="CSE" value="CSE" />
+                    <Picker.Item label="EEE" value="EEE" />
+                    <Picker.Item label="MECH" value="MECH" />
+                    <Picker.Item label="CE" value="CE" />
+                </Picker>
                 <Button
           title="Select Document"
           onPress={this._pickDocument}
