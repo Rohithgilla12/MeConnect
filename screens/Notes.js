@@ -16,8 +16,11 @@ import ActionButton from 'react-native-action-button';
 import {
     Card,
     ListItem,
-    Icon
+    Icon,
+    Divider
 } from 'react-native-elements';
+
+console.ignoredYellowBox = ['Setting a timer'];
 
 export default class Notes extends React.Component {
         constructor() {
@@ -26,7 +29,8 @@ export default class Notes extends React.Component {
             this.state = {
                 textInput: '',
                 loading: true,
-                announcements: [],
+                notesRaw: [],
+                refresh: false
             };
         }
 
@@ -52,26 +56,114 @@ export default class Notes extends React.Component {
             }
             />
         })
+        pluralCheck = (s) =>{
+            if(s == 1){
+                return ' ago';
+            }
+            else{
+                return 's ago';
+            }
+        }
+    
+        timeConverter = (timestamp) =>{
+            var a = new Date(timestamp*1000);
+            var seconds = Math.floor((new Date() - a)/ 1000);
+    
+            var interval = Math.floor(seconds/ 31536000);
+            if(interval >1){
+                return interval+' year'+this.pluralCheck(interval);
+            }
+            interval = Math.floor(seconds/ 2592000);
+            if(interval >1){
+                return interval+' month'+this.pluralCheck(interval);
+            }
+            interval = Math.floor(seconds/ 86400);
+            if(interval >1){
+                return interval+' day'+this.pluralCheck(interval);
+            }
+            interval = Math.floor(seconds/ 3600);
+            if(interval >1){
+                return interval+' hour'+this.pluralCheck(interval);
+            }
+            interval = Math.floor(seconds/ 60);
+            if(interval >1){
+                return interval+' minute'+this.pluralCheck(interval);
+            }
+            return Math.floor(seconds)+ ' second'+this.pluralCheck(interval);
+        }
 
         fetchNotes = () => {
+            this.setState({
+                // refresh:true,
+                notesRaw:[]
+            });
             try {
                 var userId = f.auth().currentUser.uid;
             } catch {
                 this.props.navigation.navigate('Login')
             }
+            var that = this;
             data = database.ref('users/' + userId + '/Notes/').once('value').then(function (snapshot) {
                 console.log(snapshot);
+                const exists = (snapshot.val() != null);
+                if(exists) data = snapshot.val();                    
+                    var notesFeed = that.state.notesRaw;                    
+                    for(var note in data){
+                        notesFeed.push({
+                            posted: that.timeConverter(data[note].timestamp),
+                            noteText : data[note].name
+                        })
+                    }
             });
         }
 
         componentDidMount() {
-            this.fetchNotes();
+            this.fetchNotes();            
+            console.log(this.state.notesRaw)
         }
       
   render() {
     return (
             <View style={styles.container}>
-            <Text>Notes Route</Text> 
+                <FlatList
+                    refreshing = {this.state.refresh}
+                    onRefresh = {this.fetchNotes}
+                    data = {this.state.notesRaw}
+                    keyExtractor = {(item, index) => index.toString()}
+                    style = {{ flex:1, backgroundColor:"#eee"}}
+                    renderItem = {({item, index}) => (
+                        
+                        <View key= {index} style={{width:'100%', overflow:'hidden', marginBottom:5, justifyContent:'space-between'}}>
+                            <View>
+                                <Card>
+                                <Text style={{ marginBottom: 10 }}>
+                                    {item.caption}
+                                </Text>
+                                <View>
+                                    <Text>{item.noteText}</Text>                                    
+                                </View>
+                                < Divider style = {
+                                    {
+                                        backgroundColor: '#dfe6e9'
+                                    }
+                                }
+                                />
+                                < View style = {
+                                    {
+                                        flex: 1,
+                                        justifyContent: 'flex-end',
+                                        alignItems: 'stretch',
+                                        flexDirection: 'column'
+                                    }
+                                } >
+                                    <Text style={styles.noteStyle}>{item.posted}</Text>
+                                </View>                                
+                                </Card>                                
+                            </View>
+                            
+                        </View>
+                    )}
+                    />
             <ActionButton
                 buttonColor="rgba(231,76,60,1)"
                 onPress={() => { 
@@ -89,5 +181,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop:40
+  },
+  noteStyle: {
+    margin: 5,
+    fontStyle: 'italic',
+    color: '#616C6F',
+    fontSize: 10,    
+    textAlign: 'right'
   }
 })

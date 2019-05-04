@@ -1,10 +1,34 @@
-
 import React from 'react'
-import { StyleSheet, Platform, Image, Text, View , Button, FlatList} from "react-native";
-import {f,auth, storage, db, database} from '../config/config';
+import {
+    StyleSheet,
+    Platform,
+    Image,
+    Text,
+    View,
+    Button,
+    FlatList
+} from "react-native";
+import {
+    f,
+    auth,
+    storage,
+    db,
+    database
+} from '../config/config';
 import ActionButton from 'react-native-action-button';
-import {createStackNavigator, createDrawerNavigator,DrawerItems, SafeAreaView, createAppContainer} from 'react-navigation';
-import { Card, ListItem, Icon, Divider } from 'react-native-elements';
+import {
+    createStackNavigator,
+    createDrawerNavigator,
+    DrawerItems,
+    SafeAreaView,
+    createAppContainer
+} from 'react-navigation';
+import {
+    Card,
+    ListItem,
+    Icon,
+    Divider
+} from 'react-native-elements';
 import Announcements from './Announcements';
 console.ignoredYellowBox = ['Setting a timer'];
 export default class Main extends React.Component{
