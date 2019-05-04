@@ -64,7 +64,6 @@ export default class Notes extends React.Component {
                 return 's ago';
             }
         }
-    
         timeConverter = (timestamp) =>{
             var a = new Date(timestamp*1000);
             var seconds = Math.floor((new Date() - a)/ 1000);
