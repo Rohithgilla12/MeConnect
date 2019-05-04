@@ -13,9 +13,6 @@ import {
     DocumentPicker
 } from 'expo';
 
-
-
-
 import {
     f,
     auth,
@@ -95,34 +92,12 @@ export default class sem1 extends Component {
         })
     }
 
-    // fineNewDoc = async() => {
-    //     let result = await DocumentPicker.getDocumentAsync({
-    //         type:'application/pdf',
-    //     });
-    //     console.log("Here!",result.name);        
-    //     if(!result.cancelled){
-    //         console.log('Upload Doc')
-    //         this.setState({
-    //             imageSelected: true,
-    //             docId: this.uniqueID(),
-    //             uri : result.uri,
-    //             name : result.name
-    //         })
-    //         // this.uploadImage(result.uri)
-    //     }
-    //     else{
-    //         console.log('Cancel Doc')
-    //         this.setState({
-    //             imageSelected:false
-    //         })
-    //     }
-    // }
-
     static navigationOptions = ({
         navigation
     }) => ({
         title: 'Add Doc',
         headerTintColor: '#129cf3',
+        // backgroundColor:"#003153",
         headerTitleStyle: {
             color: "#129cf3"
         },
@@ -139,7 +114,7 @@ export default class sem1 extends Component {
             url: docUrl
         };
         // TODO Firebase update
-        database.ref('/docs/' + docId).set(docObj);
+        database.ref('/docs/' + this.state.branch + "/" + docId).set(docObj);
         alert("Document Uploaded!");
         this.props.navigation.navigate('Main');
 
@@ -168,8 +143,13 @@ export default class sem1 extends Component {
                     <Picker.Item label="CE" value="CE" />
                 </Picker>
                 <Button
-          title="Select Document"
-          onPress={this._pickDocument}
+                    buttonStyle={{
+                        padding:10,
+                        margin:15,
+                        backgroundColor:"#003153"
+                    }}
+                    title="Choose doc and upload!"
+                    onPress={this._pickDocument}
         />
             </View>
         );

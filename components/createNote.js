@@ -13,9 +13,7 @@ import {
   Input
 } from 'react-native-elements';
 import {
-  KeyboardAvoidingView
-} from 'react-native';
-import {
+  KeyboardAvoidingView,
   TouchableHighlight,
   StyleSheet,
   TextInput,
@@ -97,7 +95,7 @@ export default class createNote extends Component {
           padding: 20,
           flexDirection: 'column',
           justifyContent: 'center',
-          backgroundColor: '#fff8dc',
+          backgroundColor: '#73c3fb',
           
         },
         title: {
@@ -127,10 +125,8 @@ export default class createNote extends Component {
           alignSelf: 'center'
 
         },
-        button: {
-            
+        button: {            
             height: 45,
-            
             flexDirection: 'row',
             backgroundColor: 'white',
             borderColor: 'white',
@@ -139,8 +135,8 @@ export default class createNote extends Component {
             marginBottom: 100,
             marginTop: 10,
             alignItems: 'center',
-            //alignSelf: 'stretch',
-            justifyContent: 'center'
+            alignSelf: 'center',
+            justifyContent: 'center',
 
           }
         });

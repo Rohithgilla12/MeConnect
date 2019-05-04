@@ -1,7 +1,19 @@
 
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import {f,auth, storage, db} from '../config/config';
+import {
+    View,
+    Text,
+    TextInput,
+    Button,
+    StyleSheet,
+    TouchableHighlight
+} from "react-native";
+import {
+    f,
+    auth,
+    storage,
+    db
+} from '../config/config';
 
 
 export default class SignUp extends React.Component{

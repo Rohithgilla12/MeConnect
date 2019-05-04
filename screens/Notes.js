@@ -130,7 +130,7 @@ export default class Notes extends React.Component {
                     onRefresh = {this.fetchNotes}
                     data = {this.state.notesRaw}
                     keyExtractor = {(item, index) => index.toString()}
-                    style = {{ flex:1, backgroundColor:"#eee"}}
+                    style = {{ flex:1}}
                     renderItem = {({item, index}) => (
                         
                         <View key= {index} style={{width:'100%', overflow:'hidden', marginBottom:5, justifyContent:'space-between'}}>
@@ -144,7 +144,7 @@ export default class Notes extends React.Component {
                                 </View>
                                 < Divider style = {
                                     {
-                                        backgroundColor: '#dfe6e9'
+                                        backgroundColor: '#616C6F'
                                     }
                                 }
                                 />

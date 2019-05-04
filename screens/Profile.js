@@ -141,7 +141,8 @@ class Profile extends Component {
                         <Button
                             buttonStyle={{
                                 padding:10,
-                                margin:15
+                                margin:15,
+                                backgroundColor:"#003153"
                             }}
                             icon={
                             <FontAwesome name="sign-out" size={25} style={{ color: 'red' }} />
