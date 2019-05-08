@@ -120,7 +120,7 @@ export default class mech extends React.Component {
   }
     loadFeed = () =>{
       this.setState({
-          // refresh:true,
+          refresh:true,
           docFeed:[]
       });
 
@@ -146,19 +146,13 @@ export default class mech extends React.Component {
   }
 
     componentDidMount() {
-      const {
-        currentUser
-      } = f.auth()
-      this.setState({
-        currentUser
-      })
       this.loadFeed();
       console.log("Doc feed arr",this.state.docFeed);
     }
 
   render() {
     return (
-            <View style={styles.container}>
+            <View style={styles.container}>            
             <FlatList
                     refreshing = {this.state.refresh}
                     onRefresh = {this.loadFeed}

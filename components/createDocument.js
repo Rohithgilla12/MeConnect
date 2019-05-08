@@ -23,7 +23,8 @@ import {
 export default class sem1 extends Component {
 
     state = {
-        branch: 'CSE'
+        branch: 'CSE',
+        sem : 'Sem1'
     }
 
     static navigationOptions = ({
@@ -108,10 +109,14 @@ export default class sem1 extends Component {
         var dataTime = Date.now();
         var timestamp = Math.floor(dataTime / 1000);
         var docId = this.uniqueID();
+        var fileOriginalName = this.state.name;
+        var semesterNumber = this.state.sem;
         var docObj = {
             author: userId,
             posted: timestamp,
-            url: docUrl
+            url: docUrl,
+            sem: semesterNumber,
+            fileOriginal : fileOriginalName
         };
         // TODO Firebase update
         database.ref('/docs/' + this.state.branch + "/" + docId).set(docObj);
@@ -123,6 +128,7 @@ export default class sem1 extends Component {
         console.log(this.state);
         let result = await DocumentPicker.getDocumentAsync({});
         //   alert(result.uri);
+        console.log(this.state.sem)
         console.log(result);
         this.setState({
             uri: result.uri,
@@ -135,12 +141,25 @@ export default class sem1 extends Component {
             <View style= {styles.container}>
                 <Picker
                     selectedValue={this.state.branch}
-                    style={{ height: 50, width: 100 }}
+                    style={{ height: 50, width: 200 }}
                     onValueChange={(itemValue, itemIndex) => this.setState({branch: itemValue})}>
                     <Picker.Item label="CSE" value="CSE" />
                     <Picker.Item label="EEE" value="EEE" />
                     <Picker.Item label="MECH" value="MECH" />
                     <Picker.Item label="CE" value="CE" />
+                </Picker>
+                <Picker
+                    selectedValue={this.state.sem}
+                    style={{ height: 50, width: 200 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({sem: itemValue})}>
+                    <Picker.Item label="Semester 1" value="Sem1" />
+                    <Picker.Item label="Semester 2" value="Sem2" />
+                    <Picker.Item label="Semester 3" value="Sem3" />
+                    <Picker.Item label="Semester 4" value="Sem4" />
+                    <Picker.Item label="Semester 5" value="Sem5" />
+                    <Picker.Item label="Semester 6" value="Sem6" />
+                    <Picker.Item label="Semester 7" value="Sem7" />
+                    <Picker.Item label="Semester 8" value="Sem8" />
                 </Picker>
                 <Button
                     buttonStyle={{
